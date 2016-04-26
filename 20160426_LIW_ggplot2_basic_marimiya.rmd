@@ -11,13 +11,10 @@ data(iris)
 ```
 
 ### Basics
-予習の内容を簡単におさらい程度の内容を入れる。
 ```{r  }
 head(iris)
 summary(iris)
 ```
-
-irisデータの説明を入れる
 
 ### 基本のiris データで描画
 ```{r }
@@ -27,12 +24,12 @@ g + geom_point() # Simple point plot
 
 ```{r }
 g<- ggplot(iris,aes(Sepal.Length,Petal.Length,color=Species)) # 種類別に色を付ける
-g + geom_point() # 同じgeom_pointだけど色が変わる点を説明
+g + geom_point() # 同じgeom_pointだけど色が変わる
 ```
 
 ```{r }
 g<- ggplot(iris,aes(Sepal.Length,Petal.Length,color=Species))
-g + geom_point() + geom_rug()　# 時々rug plotも見るので、簡単に追加できる例として
+g + geom_point() + geom_rug()　# rug plot
 ```
 
 
@@ -41,7 +38,6 @@ g<- ggplot(iris,aes(Sepal.Length,Petal.Length,color=Species))
 g + geom_point() + geom_density2d()　# こんなのも描けるよ、的な例。
 ```
 
-## 露崎さんから
 ```{r }
 ggplot(iris, aes(x=Sepal.Length)) + geom_histogram(binwidth=0.1)
 
@@ -101,8 +97,6 @@ g + geom_bar()
 
 
 ```
-
-
 
 
 ```{r }
