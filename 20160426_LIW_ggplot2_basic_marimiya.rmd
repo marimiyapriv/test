@@ -1,0 +1,141 @@
+---
+title: "LIW_2_basic"
+author: "Mari Miyamoto"
+date: "2016年4月26日"
+output: html_document
+---
+
+```{r  }
+library(ggplot2)
+data(iris)
+```
+
+### Basics
+予習の内容を簡単におさらい程度の内容を入れる。
+```{r  }
+head(iris)
+summary(iris)
+```
+
+irisデータの説明を入れる
+
+### 基本のiris データで描画
+```{r }
+g<- ggplot(iris,aes(Sepal.Length,Petal.Length))
+g + geom_point() # Simple point plot
+```
+
+```{r }
+g<- ggplot(iris,aes(Sepal.Length,Petal.Length,color=Species)) # 種類別に色を付ける
+g + geom_point() # 同じgeom_pointだけど色が変わる点を説明
+```
+
+```{r }
+g<- ggplot(iris,aes(Sepal.Length,Petal.Length,color=Species))
+g + geom_point() + geom_rug()　# 時々rug plotも見るので、簡単に追加できる例として
+```
+
+
+```{r }
+g<- ggplot(iris,aes(Sepal.Length,Petal.Length,color=Species))
+g + geom_point() + geom_density2d()　# こんなのも描けるよ、的な例。
+```
+
+## 露崎さんから
+```{r }
+ggplot(iris, aes(x=Sepal.Length)) + geom_histogram(binwidth=0.1)
+
+ggplot(iris, aes(x=Sepal.Length)) + geom_density(fill=rgb(1,0,0,0.5))
+
+ggplot(iris, aes(x=Sepal.Length)) +
+  geom_density(aes(col=Species,fill=Species), alpha=0.5)
+
+```
+
+
+
+### 図のタイトルやx軸、y軸の書き方
+
+```{r }
+g<- ggplot(iris,aes(Sepal.Length,Petal.Length,color=Species))
+g + geom_point() + geom_rug()　+
+  ggtitle("Rug plot") +  # タイトル
+  xlab("Sepal Length") +
+  ylab("Petal Length")
+```
+
+### Box Plot
+
+```{r }
+g <- ggplot(iris,aes(Species,Sepal.Length,color=Species))
+g + geom_boxplot()  # geom_boxplot()に変えるだけ
+```
+
+```{r}
+ggplot(iris,aes(Species,Sepal.Length,color=Species)) + geom_boxplot() + theme(axis.text.y=element_text(size=25), axis.text.x=element_text(angle=45, hjust=1, size=15), title=element_text(size=25))
+
+```
+
+縦横を変える方法
+```{r }
+g <- ggplot(iris,aes(Species,Sepal.Length,color=Species))
+g + geom_boxplot() +
+  coord_flip() # 横に変換
+```
+
+
+```{r }
+g <- ggplot(iris,aes(Species,Sepal.Length,color=Species))
+g + geom_boxplot() + geom_jitter()　
+```
+
+
+### Bar chart
+```{r }
+
+g <- ggplot(iris,aes(Species)) 
+g + geom_bar()
+
+g <- ggplot(iris,aes(Species,col=Species,fill=Species)) 
+g + geom_bar()
+
+
+```
+
+
+
+
+```{r }
+#install.packages("ggthemes")
+library(ggthemes)
+```
+### themeを使った例
+```{r }
+g<- ggplot(iris,aes(Sepal.Length,Petal.Length,color=Species))
+g + geom_point() + geom_rug()　+
+  ggtitle("Rug plot") +  # タイトル
+  xlab("Sepal Length") +
+  ylab("Petal Length") +
+  theme_wsj() + # Wall Street Journal 風
+  scale_colour_wsj() # ポイントの色もWSJ風になる
+
+```
+
+
+## Further plot 
+aesを使う場所による色分けの違い
+```{r }
+
+g<- ggplot(iris,aes(Species,Sepal.Length,color=Species))
+g + geom_boxplot() + geom_dotplot(binwidth= 0.07,binaxis="y",stackdir="center")
+
+
+g<- ggplot(iris,aes(Species,Sepal.Length,color=Species,fill=Species))
+g + geom_boxplot() + geom_dotplot(binwidth= 0.07,binaxis="y",stackdir="center")
+
+#いい感じバージョン
+g<- ggplot(iris,aes(Species,Sepal.Length,color=Species))
+g + geom_boxplot() + geom_dotplot(aes(fill=Species),binwidth= 0.07,binaxis="y",stackdir="center")
+
+```
+
